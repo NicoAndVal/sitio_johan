@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     let alturaNav = navItem.length * 4.5 + "rem";
     let contenidoHeader = document.querySelectorAll(".contenido-header")
-    console.log(contenidoHeader[0])
+    
 
 
 
@@ -257,5 +257,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
         distance: "300px"
 
     })
+    
 
 });
