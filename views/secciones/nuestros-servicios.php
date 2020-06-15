@@ -9,19 +9,19 @@
             <i class="fas fa-tools"></i>
             <h3>REPARACIONES</h3>
             <p>Realice su trabajo con profesionales. No pierda mas tiempo y dinero, solicite una cotización..</p>
-            <a href="#" class="boton">COTIZAR</a>
+            <a href="index.php?pagina=servicios" class="boton">VER MÁS</a>
         </div>
         <div class="servicio">
             <i class="fas fa-hammer"></i>
             <h3>ALBAÑILERÍA</h3>
             <p>Si deseas un trabajo de calidad, nosotros somos los indicados. Especialistas en Albañilería, Carpintería, Estructuras metálicas, etc.</p>
-            <a href="#" class="boton">COTIZAR</a>
+            <a href="index.php?pagina=servicios" class="boton">VER MÁS</a>
         </div>
         <div class="servicio">
             <i class="fas fa-paint-roller"></i>
             <h3>PINTURAS</h3>
             <p>Realice su trabajo con profesionales. No pierda mas tiempo y dinero, solicite una cotización..</p>
-            <a href="#" class="boton">COTIZAR</a>
+            <a href="index.php?pagina=servicios" class="boton">VER MÁS</a>
         </div>
 
     </div>

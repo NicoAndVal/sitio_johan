@@ -7,6 +7,7 @@
 body {
     background-color: #e2e2e2;
     position: relative;
+    overflow-x: hidden;
 }
 
 html {
@@ -165,23 +166,49 @@ img {
 /* BANNER */
 .header {
     position: relative;
-    overflow: hidden;
     height: 100vh;
     width: 100%;
-    margin: 0 auto;
+    overflow: hidden;
 }
 
 .slice {
     height: 100vh;
     width: 100%;
-    position: absolute;
+    position: relative;
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
     top: 0;
     transition: all ease-in-out .3s;
-    display: flex;
+    display: inline-block;
     background-color: green;
+    margin-right: -4px;
+}
+
+.slider .controls ul {
+    padding: 0;
+    text-align: center;
+    position: absolute;
+    bottom: 2em;
+    margin: 0;
+    width: 100%;
+    z-index: 5;
+}
+
+.slider .controls li {
+    list-style-type: none;
+    background-color: #444;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .4);
+    margin-right: 5px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.slider .controls li.active {
+    background-color: var(--primaryColor);
 }
 
 .contenido-header {
@@ -194,13 +221,10 @@ img {
     color: white;
     align-items: center;
     opacity: 0;
-}
-
-.show-contenido {
-    opacity: 1;
     transition: all ease-in 1s;
-
 }
+
+
 
 .contenido-header h1 {
     font-size: 4rem;
@@ -243,55 +267,6 @@ img {
 
 }
 
-/* Clases para mover las slicd */
-
-.pos_central {
-    right: 0;
-    z-index: 1000;
-}
-
-.pos_izq {
-    right: 100%;
-    z-index: 500;
-}
-
-.pos_der {
-    right: -100%;
-    z-index: 1500;
-}
-
-
-
-.imgArr {
-    height: 40px;
-    width: 40px;
-    position: absolute;
-    top: 50%;
-    z-index: 2000;
-    opacity: .7;
-    cursor: pointer;
-}
-
-.imgArr:hover {
-    opacity: .9;
-}
-
-.imgArrLeft {
-    left: 5px;
-    background-image: url(../img/left.png);
-    background-size: 60%;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
-.imgArrRight {
-    right: 5px;
-    background-image: url(../img/right.png);
-    background-size: 60%;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
 
 .boton {
     background-color: var(--primaryColor);
@@ -306,6 +281,60 @@ img {
 .boton:active {
     box-shadow: 2px 2px 0 2px RGB(235, 170, 0), 3px 4px 4px;
 }
+
+.container {
+    position: relative;
+    white-space: nowrap;
+    transition: all linear .3s;
+
+}
+
+
+/* Banner-servicios */
+.contenido-banner {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: white;
+    align-items: center;
+    transition: all ease-in 1s;
+}
+
+
+.title_servicios {
+    font-size: 8rem;
+    margin: 0;
+    padding: 1rem;
+    text-transform: uppercase;
+    padding: 2rem;
+}
+
+.separador {
+    border: 2px solid var(--primaryColor);
+    width: 10%;
+}
+
+.contenido-banner h3 {
+    font-size: 3rem;
+}
+
+.contenido-banner a {
+    color: white;
+    font-size: 1.5rem;
+    padding: 1rem;
+}
+
+.contenido-banner a i {
+    color: white;
+    font-size: 1.5rem;
+    padding: .8rem;
+}
+
+/* Banner-servicios */
+
 
 
 /* Banner escritorio */
@@ -708,6 +737,11 @@ img {
     margin-right: 1rem;
 }
 
+.derechos{
+    color: white;
+    padding-right: 7rem;
+}
+
 /* Footer */
 
 /* Loader */
@@ -900,3 +934,11 @@ img {
 }
 
 /* whatsapp */
+
+
+/* pagina servicios */
+
+
+
+
+/* pagina servicios */

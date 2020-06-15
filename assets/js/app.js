@@ -28,185 +28,93 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     menu.addEventListener("click", mostrarMenu)
 
+    class IndexForSiblings {
+        static get(el) {
+            let children = el.parentNode.children
+            for (var i = 0; i < children.length; i++) {
+                let child = children[i]
+                if (child == el) return i
+            }
+        }
+    }
+
+
+    class Slider {
+        constructor(selector, movimiento = true) {
+            this.move = this.move.bind(this)
+            this.moveMyBottom = this.moveMyBottom.bind(this)
+            this.slider = document.querySelector(selector)
+            this.itemsCount = this.slider.querySelectorAll(".container > *").length
+            this.contenidoHeader = this.slider.querySelectorAll(".contenido-header")
+            this.movimiento = movimiento
+            this.interval = null
+            this.contador = 0
+            this.start()
+            this.buildControls()
+            this.bindEvents()
+            this.contenidoHeader[0].style.opacity = "1"
+        }
+
+        start() {
+            if (!this.movimiento) return
+            this.interval = window.setInterval(this.move, 5000)
+        }
+
+        restart() {
+            if (this.interval) window.clearInterval(this.interval)
+            this.start()
+        }
+
+        bindEvents() {
+            this.slider.querySelectorAll(".controls li")
+                .forEach(item => {
+                    item.addEventListener("click", this.moveMyBottom)
+                })
+        }
+
+        moveMyBottom(ev) {
+            let index = IndexForSiblings.get(ev.currentTarget)
+            this.contador = index
+            this.moveTo(index)
+            this.restart()
+        }
+
+        buildControls() {
+            for (let i = 0; i < this.itemsCount; i++) {
+                let control = document.createElement("li")
+
+                if (i == 0) control.classList.add("active")
+
+                this.slider.querySelector(".controls ul").appendChild(control)
+
+            }
+        }
+
+        move() {
+            this.contador++
+            if (this.contador > this.itemsCount - 1) this.contador = 0
+            this.moveTo(this.contador)
+        }
+
+        resetIndicador() {
+            this.slider.querySelectorAll(".controls li.active")
+                .forEach(element => element.classList.remove("active"));
+        }
+        moveTo(index) {
+            let left = index * 100
+            this.resetIndicador()
+            this.slider.querySelector(".controls li:nth-child(" + (index + 1) + ")").classList.add("active")
+            this.slider.querySelector(".container").style.left = "-" + left + "%"
+            this.contenidoHeader[index].style.opacity = "1"
+        }
+    }
+
+    (function () {
+        new Slider(".slider")
+
+    })()
+
     
-    
-    // BANNER
-    let count = 1
-    let timeBanner = 4000
-    let banner1 = document.getElementById("banner1")
-    let banner2 = document.getElementById("banner2")
-    let banner3 = document.getElementById("banner3")
-    let contenedorBanner = document.getElementById("header")
-    let arrLeft = document.getElementById("imgArrLeft")
-    let arrRight = document.getElementById("imgArrRight")
-
-    window.onload = () => {
-        bannerLoop()
-    }
-
-    contenedorBanner.onmouseenter = () => {
-        clearInterval(startBannerLoop)
-    }
-
-
-    // Detiene la ejecución del banner cuando se pasa el mouse
-    contenedorBanner.onmouseleave = () => {
-        startBannerLoop = setInterval(() => {
-            bannerLoop()
-        }, timeBanner)
-    }
-
-    //comienza nuevamente la ejecucción del banner
-    var startBannerLoop = setInterval(() => {
-        bannerLoop()
-    }, timeBanner)
-
-    // flecha derecha
-    arrLeft.onclick = () => {
-
-        if (count === 1) {
-            count = 2
-        } else if (count === 2) {
-            count = 3
-        } else if (count === 3) {
-            count = 1
-        }
-    }
-
-    arrRight.onclick = () => {
-        console.log("click en la flechad erecha")
-        console.log(count)
-        if (count === 1) {
-            count = 1
-        } else if (count === 2) {
-            count = 2
-        } else if (count === 3) {
-            count = 3
-        }
-        console.log(count)
-        bannerLoop()
-    }
-    arrLeft.onclick = () => {
-        console.log("click en la flechad izq")
-        if (count === 1) {
-            count = 2
-        } else if (count === 2) {
-            count = 3
-        } else if (count === 3) {
-            count = 1
-        }
-        console.log(count)
-        bannerLoopLeft()
-        // clearInterval(startBannerLoop)
-    }
-
-
-    function bannerLoop() {
-        if (count === 1) {
-            banner2.style.opacity = "0"
-            setTimeout(() => {
-                contenidoHeader[2].classList.add("show-contenido")
-                contenidoHeader[1].classList.remove("show-contenido")
-
-                banner3.classList.remove("pos_central")
-                banner1.classList.remove("pos_izq")
-                banner2.classList.remove("pos_der")
-                banner1.classList.add("pos_central")
-                banner2.classList.add("pos_izq")
-                banner3.classList.add("pos_der")
-            }, 500)
-            setTimeout(() => {
-                banner2.style.opacity = "1"
-            }, 500)
-            count = 2
-        } else if (count === 2) {
-            banner3.style.opacity = "0"
-            setTimeout(() => {
-                contenidoHeader[1].classList.add("show-contenido")
-                contenidoHeader[0].classList.remove("show-contenido")
-
-                banner1.classList.remove("pos_central")
-                banner2.classList.remove("pos_izq")
-                banner3.classList.remove("pos_der")
-                banner2.classList.add("pos_central")
-                banner3.classList.add("pos_izq")
-                banner1.classList.add("pos_der")
-            }, 500)
-            setTimeout(() => {
-                banner3.style.opacity = "1"
-            }, 500)
-            count = 3
-        } else if (count === 3) {
-            banner1.style.opacity = "0"
-            setTimeout(() => {
-                contenidoHeader[0].classList.add("show-contenido")
-                contenidoHeader[2].classList.remove("show-contenido")
-
-                banner2.classList.remove("pos_central")
-                banner3.classList.remove("pos_izq")
-                banner1.classList.remove("pos_der")
-                banner3.classList.add("pos_central")
-                banner1.classList.add("pos_izq")
-                banner2.classList.add("pos_der")
-
-            }, 500)
-            setTimeout(() => {
-                banner1.style.opacity = "1"
-            }, 500)
-            count = 1
-        }
-    }
-
-
-    function bannerLoopLeft() {
-        if (count === 1) {
-            banner3.style.opacity = "0"
-            setTimeout(() => {
-                banner2.classList.remove("pos_central")
-                banner3.classList.remove("pos_izq")
-                banner1.classList.remove("pos_der")
-                banner1.classList.add("pos_central")
-                banner2.classList.add("pos_izq")
-                banner3.classList.add("pos_der")
-            }, 500)
-            setTimeout(() => {
-                banner3.style.opacity = "1"
-            }, 500)
-            count = 2
-
-        } else if (count === 2) {
-            banner1.style.opacity = "0"
-            setTimeout(() => {
-                banner3.classList.remove("pos_central")
-                banner1.classList.remove("pos_izq")
-                banner2.classList.remove("pos_der")
-
-                banner2.classList.add("pos_central")
-                banner3.classList.add("pos_izq")
-                banner1.classList.add("pos_der")
-            }, 500)
-            setTimeout(() => {
-                banner1.style.opacity = "1"
-            }, 500)
-            count = 3
-        } else if (count === 3) {
-            banner2.style.opacity = "0"
-            setTimeout(() => {
-                banner1.classList.remove("pos_central")
-                banner2.classList.remove("pos_izq")
-                banner3.classList.remove("pos_der")
-                banner3.classList.add("pos_central")
-                banner1.classList.add("pos_izq")
-                banner2.classList.add("pos_der")
-
-            }, 500)
-            setTimeout(() => {
-                banner2.style.opacity = "1"
-            }, 500)
-            count = 1
-        }
-    }
-
 
     window.sr = ScrollReveal();
 
@@ -257,6 +165,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         distance: "300px"
 
     })
+   
     
 
 });
