@@ -159,12 +159,20 @@ document.addEventListener("DOMContentLoaded", function (event) {
         distance: "300px"
 
     })
-    sr.reveal(".img-form",{
+    sr.reveal(".title-contact",{
         duration: 2000,
         origin:"right",
         distance: "300px"
 
     })
+    sr.reveal(".datos-contacto",{
+        duration: 2000,
+        origin:"right",
+        distance: "300px"
+
+    })
+
+
    
     
 
